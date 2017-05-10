@@ -1,0 +1,38 @@
+﻿@using System.Web.Mvc;
+@using Orchard.ContentManagement
+
+@{ 
+    var windowUrl = WorkContext.HttpContext.Request.RawUrl;
+}
+<div class="topMenu" style="text-align:center">
+    @if (windowUrl.ToLower().EndsWith("about"))
+    {
+        <a href="/about" class="topMenuSelected">About</a>
+    }
+    else
+    {
+        <a href="/about" class="topMenu" style="font-weight:bold">About</a>
+    }
+     |
+    @if (windowUrl.ToLower().EndsWith("pfr") || windowUrl.ToLower().Contains("/pfr"))
+    {
+        <a href="/pfr" class="topMenuSelected">PFR</a>
+    }
+    else
+    {
+        <a href="/pfr" class="topMenu" style="font-weight:bold">PFR</a>
+    }
+     |
+    @if (windowUrl.ToLower().EndsWith("/") || windowUrl.ToLower().EndsWith("citation"))
+    {
+        <a href="~/" class="topMenuSelected">Citation</a>
+    }
+    else
+    {
+        <a href="~/" class="topMenu" style="font-weight:bold">Citation</a>
+    }
+</div>
+<div id="branding">
+    
+    <img id="imgBranding" class="logo"  src="@Url.Content(Html.ThemePath(WorkContext.CurrentTheme, "/Content/images/logo.jpg"))" style="border-width:0px;"/>
+</div>

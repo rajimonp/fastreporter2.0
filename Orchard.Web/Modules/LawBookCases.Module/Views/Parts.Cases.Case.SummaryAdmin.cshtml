@@ -1,0 +1,10 @@
+﻿@using LawBookCases.Module.Extensions;
+@using LawBookCases.Module.Models;
+@using Orchard.ContentManagement;
+
+@{
+    ContentItem contentItem = Model.ContentItem;
+    CasePart blog = (CasePart)contentItem.Get(typeof(CasePart));
+}
+<a href="@Url.CaseForAdmin(blog)" title="@T("List Cases")">@T("List Cases")</a>@T(" | ")
+<a href="@Url.CasePostCreate(blog)" title="@T("New Case")">@T("New Case")</a>@T(" | ")

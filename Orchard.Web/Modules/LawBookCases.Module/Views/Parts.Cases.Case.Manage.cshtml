@@ -1,0 +1,11 @@
+﻿@using LawBookCases.Module.Extensions;
+@using LawBookCases.Module.Models;
+@{
+    Style.Require("BlogsAdmin");
+}
+@if (AuthorizedFor(LawBookCases.Module.Permissions.ManageCases)) {
+<div class="item-properties actions">
+    <p><a href="@Url.CaseEdit((CasePart)Model.ContentPart)" class="edit">@T("Case Properties")</a></p>
+</div>
+
+}

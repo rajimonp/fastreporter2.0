@@ -1,0 +1,10 @@
+﻿@{
+    IEnumerable<object> casePosts = Model.ContentItems;
+    Model.ContentItems.Classes.Add("case-title");
+ //Model.ContentItems.Classes.Add("blog-posts");
+}
+
+@Display(Model.ContentItems)
+@if (casePosts == null || casePosts.Count() < 1) {
+<p>@T("Could not retrive any case.")</p>
+}

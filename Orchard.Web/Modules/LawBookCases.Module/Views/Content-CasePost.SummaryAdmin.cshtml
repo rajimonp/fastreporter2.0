@@ -1,0 +1,122 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Contents
+@using Orchard.Utility.Extensions;
+@using Orchard.Mvc.Html;
+@using LawBookCases.Module.Extensions;
+@using LawBookCases.Module.Models;
+
+@{
+    Script.Require("ShapesBase");
+    ContentItem contentItem = Model.ContentItem;
+    var returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString();
+
+    CasePostAttribPart attri = contentItem.Get<CasePostAttribPart>();
+
+    Boolean isAcquired = attri.CaseAcquiredBy == 0 ? false : true;
+
+    string AcquiredBy = attri.CaseAcquiredRole;
+    var statrec = attri.CurrentPostState;
+    if (statrec != null) {
+        if ((int)CasePostStateRecord.CaseAcquiredStateEnum.INTERNAcquired == statrec.CaseAcquiredStatus)
+        {
+
+        }
+    }
+
+
+    bool isMe = false;
+    //Check isit accuired by me
+    if (WorkContext.CurrentUser != null)
+    {
+        isMe = WorkContext.CurrentUser.ContentItem.Id == attri.CaseAcquiredBy;
+    }
+    bool icanEdit = isAcquired && isMe;
+
+
+}
+    
+
+<div class="summary" itemscope="itemscope" itemid="@contentItem.Id" itemtype="http://orchardproject.net/data/ContentItem">
+    <div>
+        <div class="properties">
+            <input type="checkbox" value="@contentItem.Id" name="itemIds" />
+            <h3>@Html.ItemAdminLink(contentItem)</h3> - <div class="contentType">@contentItem.TypeDefinition.DisplayName</div>
+            @if (Model.Header != null)
+            {
+                <div class="header">@Display(Model.Header)</div>
+            }
+            @if (Model.Meta != null)
+            {
+                <div class="metadata">@Display(Model.Meta)</div>
+            }
+        </div>
+    </div>
+    <div class="related">
+        @Display(Model.Actions)
+
+        @if (contentItem.HasPublished())
+        {
+            @Html.ItemDisplayLink(T("View").Text, contentItem)
+            @T(" | ")
+
+            if (contentItem.HasDraft())
+            {
+                @Html.Link(T("Publish Draft").Text, Url.Action("Publish", "Admin", new { area = "Contents", id = contentItem.Id, returnUrl = Request.ToUrlString() }), new { itemprop = "UnsafeUrl" })
+                @T(" | ")
+
+                if (Authorizer.Authorize(LawBookCases.Module.Permissions.PublishCasePost, contentItem))
+                {
+                    @Html.ActionLink(T("Preview").Text, "Preview", "Item", new { area = "Contents", id = contentItem.Id }, new { })
+                    @T(" | ")
+                }
+            }
+
+            //i f (Authorizer.Authorize(LawBookCases.Module.Permissions.PublishCasePost, contentItem))
+            //{
+            //    @Html.Link(T("Unpublish").Text, Url.Action("Unpublish", "Admin", new { area = "Contents", id = contentItem.Id, returnUrl = Request.ToUrlString() }), new { itemprop = "UnsafeUrl" })
+            //    @T(" | ")
+            //}
+        }
+        else
+        {
+            if (contentItem.HasDraft())
+            {
+                @Html.ActionLink(T("Preview").Text, "Preview", "Item", new { area = "Contents", id = contentItem.Id }, new { })
+                @T(" | ")
+                //  @Html.ActionLink(T("Acquier Case").Text, "Acquier", "CasePostAdmin", new { area = "LawBookCases.Module", id = contentItem.Id }, new { })
+               if (isAcquired)
+               {
+                @Html.Link(T(AcquiredBy).Text, "")
+                @T(" | ")
+               }
+               else
+               {
+                @Html.Link(T("Acquier").Text, @Url.CasePostAcquier(contentItem, returnUrl))
+                @T(" | ")
+               }
+
+
+            }
+
+            if (Authorizer.Authorize(LawBookCases.Module.Permissions.PublishCasePost, contentItem))
+            {
+                @Html.Link(T("Publish").Text, Url.Action("Publish", "Admin", new { area = "Contents", id = contentItem.Id, returnUrl = Request.ToUrlString() }), new { itemprop = "UnsafeUrl" })
+                @T(" | ")
+            }
+        }
+        @if (Authorizer.Authorize(LawBookCases.Module.Permissions.EditCasePost, contentItem)|| isAcquired)
+        {
+            @Html.ItemEditLink(T("Edit").Text, contentItem,null)@T(" | ")
+            
+            
+        }
+        @if (Authorizer.Authorize(LawBookCases.Module.Permissions.DeleteCasePost, contentItem))
+        {
+            @Html.Link(T("Delete").Text, Url.ItemRemoveUrl(contentItem, new { returnUrl }), new { itemprop = "RemoveUrl UnsafeUrl" })
+        }
+    </div>
+    @if (Model.Content != null)
+    {
+        <div class="primary">@Display(Model.Content)</div>
+    }
+</div>

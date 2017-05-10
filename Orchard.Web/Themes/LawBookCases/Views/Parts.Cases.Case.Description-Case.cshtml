@@ -1,0 +1,25 @@
+﻿@using LawBookCases.Module.Extensions;
+@using LawBookCases.Module.Models;
+@using Orchard.ContentManagement;
+
+@{
+    ContentItem contentItem = Model.ContentItem;
+    CasePart cAse = (CasePart)contentItem.Get(typeof(CasePart));
+    var opt="<a href='//www.google.com//'>HTML</a>";
+}
+
+
+
+    <div class="content-description case-description">
+        <div id="divYearNav1" class="divYearNav1"></div>
+        <script>setYearsDisplay(2013, 'divYearNav1');</script>
+
+        @if (AuthorizedFor(LawBookCases.Module.Permissions.ManageCases))
+        {
+            <a href="@Url.CasePostCreate(cAse)" title="@T("Add New Case")">@T("Add New Case")</a>
+        }
+    </div>
+
+@*<input id="__requesttoken" type="hidden" value="@Html.AntiForgeryTokenValueOrchard()" />*@
+ 
+ 

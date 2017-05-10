@@ -1,0 +1,58 @@
+﻿@model  LawBookCases.Module.Models.CasePostAttribPart
+@using LawBookCases.Module.ViewModels;
+
+<fieldset>
+    <legend>Map Fields</legend>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseDecision)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.CaseDecision)
+        @Html.ValidationMessageFor(model => model.CaseDecision)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseClient1)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.CaseClient1)
+        @Html.ValidationMessageFor(model => model.CaseClient1)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseClient2)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.CaseClient2)
+        @Html.ValidationMessageFor(model => model.CaseClient2)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseYear)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.CaseYear)
+        @Html.ValidationMessageFor(model => model.CaseYear)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseYear)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.CaseYear)
+        @Html.ValidationMessageFor(model => model.CaseYear)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseHeldIn)
+    </div>
+    <div class="bulk-actions">
+       
+          <select id="CaseHeldIn" name="CaseHeldIn.list">
+            
+        </select>
+    
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CaseHeldIn)
+    </div>
+
+    </fieldset>

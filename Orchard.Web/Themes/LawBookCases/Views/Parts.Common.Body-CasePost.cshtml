@@ -1,0 +1,61 @@
+﻿
+@using LawBookCases.Module.Models;
+
+@{
+    Orchard.ContentManagement.ContentItem contentItem = Model.ContentPart.ContentItem;
+    //string bodyHtml = Model.Html.ToString();
+    
+
+    CasePostAttribPart cnt = (CasePostAttribPart)contentItem.Get(typeof(CasePostAttribPart));
+    Orchard.Core.Title.Models.TitlePart title = (Orchard.Core.Title.Models.TitlePart)contentItem.Get(typeof(Orchard.Core.Title.Models.TitlePart));
+    string caseTitle = title.Title;
+  //  int infxpfr = bodyHtml.IndexOf("PFR [");
+//    HtmlString strDisplay= new HtmlString("");
+
+   // if (infxpfr > 0)
+ //   {
+    //    int indxLastlin = bodyHtml.IndexOf("\n", infxpfr);
+    //    string str = bodyHtml.Substring(indxLastlin, bodyHtml.Length-1);
+  //      strDisplay = new HtmlString(str);
+   // }
+
+
+    //   Title.ToString();//@using Orchard.Layouts.Helpers,// 
+}
+<script type="text/javascript">
+function AdjustIframeHeightOnLoad() { document.getElementById("form-iframe").style.height = document.getElementById("form-iframe").contentWindow.document.body.scrollHeight + "px"; }
+function AdjustIframeHeight(i) { document.getElementById("form-iframe").style.height = parseInt(i) + "px"; }
+</script>
+
+<!--
+<div   class="caseviewtitle">
+     <span>@caseTitle</span>
+     <h1>@caseTitle</h1>
+    <br><span>@cnt.CaseHeldCourt</span>
+    <br>
+    <span>@cnt.CaseDecisionTakenBy</span>
+    <br>
+     <span >@cnt.CaseReference</span>
+    <span>PFR</span>
+    <span>[@cnt.CaseYear]</span>
+    <span> @cnt.CaseNumber</span>
+    <span>(@cnt.CaseHeldIn)</span>
+    <br />
+    <br />
+
+</div>
+    -->
+
+<div class="content-item  case-content">
+  @Model.Html
+  
+</div>
+
+<div >
+
+    <iframe id="form-iframe1" src=@cnt.CaseDecision style=" width:500px; height:500px; border:none; overflow:hidden;" ></iframe>
+
+
+
+</div>
+

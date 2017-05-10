@@ -1,0 +1,8 @@
+﻿@using LawBookCases.Module.Extensions;
+@using LawBookCases.Module.Models;
+@using Orchard.UI.Resources;
+@{
+    CasePart cAse = Model.Case;
+    RegisterLink(new LinkEntry { Rel = "wlwmanifest", Type = "application/wlwmanifest+xml", Href = Url.CaseLiveWriterManifest(cAse) });
+    RegisterLink(new LinkEntry { Rel = "EditURI", Type = "application/rsd+xml", Title = "RSD", Href = Url.CaseRsd(cAse) });
+}

@@ -1,0 +1,15 @@
+﻿@model LawBookCases.Module.ViewModels.CaseArchivesViewModel
+@using LawBookCases.Module.Models;
+@using Orchard.ContentManagement;
+
+<fieldset>
+    <div>
+        @Html.LabelFor(m => m.CasId, T("For Case"))
+        <select id="@Html.FieldIdFor(m => m.BlogId)" name="@Html.FieldNameFor(m => m.CaseId)">
+		@foreach(CasePart cAse in Model.Cases) {
+            @Html.SelectOption(Model.CaseId, cAse.ContentItem.Id, cAse.Name)
+		}
+		</select>
+        <span class="hint">@T("Select which blog you want to display the archives for")</span>
+    </div>
+</fieldset>

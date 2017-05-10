@@ -1,0 +1,23 @@
+﻿@using LawBookCases.Module.Extensions;
+@using LawBookCases.Module.Models;
+    @*doing excerpt generation on the way out for now so we don't stick ourselves with needing to regen excerpts for existing data
+    also, doing this here, inline, until we have a pluggable processing model (both in and out)
+    also, ...this is ugly *@
+@{
+    Orchard.ContentManagement.ContentItem contentItem = Model.ContentPart.ContentItem;
+
+    CasePostAttribPart cnt = (CasePostAttribPart)contentItem.Get(typeof(CasePostAttribPart));
+    CasePostPart contentItemLnk = (CasePostPart)contentItem.Get(typeof(CasePostPart));
+    string bodyHtml = Model.Html.ToString();
+
+    int index = bodyHtml.ToUpper().IndexOf("Held,".ToUpper());
+    if (index > 1)
+    {
+        bodyHtml = bodyHtml.Substring(index, bodyHtml.Length - index);
+    }
+    var body = new HtmlString(Html.Excerpt(bodyHtml, 150).ToString().Replace(Environment.NewLine, "</p>" + Environment.NewLine + "<p>"));
+    //<!-- <div class="snip-text"><p>@body @Html.Link(T("more").Text, @Url.CasesAutoroute(contentItemLnk.CasePart, cnt.CaseYear,cnt.CaseNumber))</p></div>
+    //-->
+}
+
+@*<div class="snip-text"><p>@body @Html.Link(T("more").Text, @Url.CasesAutoroute(contentItemLnk.CasePart, cnt.CaseYear, cnt.CaseNumber))</p></div>*@

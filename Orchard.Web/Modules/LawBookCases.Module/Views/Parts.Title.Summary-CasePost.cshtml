@@ -1,0 +1,66 @@
+@using LawBookCases.Module.Models;
+@using LawBookCases.Module.Extensions;
+
+@{
+    Orchard.ContentManagement.ContentItem contentItem = Model.ContentPart.ContentItem;
+
+    CasePostAttribPart cnt = (CasePostAttribPart)contentItem.Get(typeof(CasePostAttribPart));
+    CasePostPart contentItemLnk = (CasePostPart)contentItem.Get(typeof(CasePostPart));
+
+    bool yearChanged = false;
+  
+    //CasePart)Model.ContentItem.Get(typeof(CasePart))
+    if (Session["year"] != null)
+    {
+        if ((int)Session["year"] == cnt.CaseYear)
+        {
+
+            yearChanged = false;
+
+        }
+        else
+        {
+            yearChanged = true;
+        }
+        Session["year"] = cnt.CaseYear;
+
+    }
+    else
+    {
+        Session["year"] = cnt.CaseYear;
+        yearChanged = true;
+    }
+
+    string title = Model.Title.ToString();
+}
+@*<script>
+    $("#yeara").click(function () {
+    alert("Handler for .click() called.");
+    });
+</script>*@
+
+@if (yearChanged)
+{
+    <a id="year"> @cnt.CaseYear&nbsp;</a>
+
+}
+else
+{
+    <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>}
+    @if (AuthorizedFor(LawBookCases.Module.Permissions.ManageCases))
+    {
+        <a href='@Url.CasePostEdit(contentItemLnk)'>
+            <img src="~/Themes/LawBookCases/Content/images/pencil.gif" />
+        </a>
+    }
+
+    <span>@Html.Link(T(title).Text, @Url.CasesAutoroute(contentItemLnk.CasePart, cnt.CaseYear, cnt.CaseNumber))</span>
+    <span id="y">[@cnt.CaseYear]</span>
+    <span> PFR</span>
+    <span> @cnt.CaseNumber</span>
+
+
+
+
+@*<span>(@cnt.CaseHeldCourt)</span>*@
+

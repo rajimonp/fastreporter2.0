@@ -1,0 +1,61 @@
+﻿<Placement>
+  <!-- available display shapes -->
+  <!--
+        Parts_Cases_Case_Manage
+        Parts_Cases_Case_Description
+        Parts_Cases_Case_CasePostCount
+        Parts_Cases_CasePost_List -> when in the blog detail display the blog post list is currently hard-coded to Content:5 to enable the current state of blog paging
+        Parts_Cases_CasePost_List_Admin
+    -->
+  <!-- widget and edit shapes just get default placement -->
+  <!-- edit "shapes" -->
+
+  <Placement>
+    <Place Parts.Cases.Post.Attributes="Content:10"/>
+    <Place Parts_Cases_Post_Attributes_Edit="Content:7.5"/>
+  <Place Case_UpdateAbstract="Content:25"/>
+  </Placement>
+
+  <Place Parts_Cases_Case_Fields="Content:2"/>
+  <Place Parts_Cases_CaseArchives_Edit="Content:5"/>
+  <Place Parts_Cases_RecentCasePosts_Edit="Content:5"/>
+  <Place Case_DeleteButton="Sidebar:25" />
+  <!-- widgets -->
+  <Place Parts_Cases_CaseArchives="Content"/>
+  <Place Parts_Cases_RecentCasePosts="Content"/>
+  <!-- default positioning -->
+  <Match ContentType="Case">
+    <Match DisplayType="Detail">
+      <!-- blog posts currently added to the blog within the controller into Content:5 <Place Parts_Cases_CasePost_List="Content:5" /> but...
+                 ...placing it in in the Content zone as it's currently implemented to light up the RSS feed for the blog... -->
+      <!-- Parts_Cases_RemotePublishing is made available with the "Remote Case Publishing" feature -->
+      <Place Parts_Title="-"/>
+      <Place Parts_Common_Metadata="-"/>
+
+      <Place Parts_Cases_CasePost_List="Content"
+             Parts_Cases_Case_Description="Content:before"
+             Parts_Cases_RemotePublishing="Content"/>
+    </Match>
+    <Match DisplayType="DetailAdmin">
+      <Place Parts_Cases_CasePost_List_Admin="Content:5"
+             Parts_Cases_Case_Manage="Actions"
+             Parts_Cases_Case_Description="Actions:after"/>
+    </Match>
+
+    <Match DisplayType="Summary">
+      <Place Parts_Common_Body_Summary="Content:5;Alternate=Parts_BlogPostSummaryBody"/>
+    </Match>>
+
+    <!-- <Match DisplayType="Summary">
+            <Place Parts_Cases_Case_Description="Content:before"
+                   Parts_Cases_Case_CasePostCount="Meta:3"/>
+        </Match>-->
+    <Match DisplayType="SummaryAdmin">
+      <Place Parts_Cases_Case_SummaryAdmin="Actions:10"/>
+      <Place Parts_Cases_Case_Description="Content:before"/>
+    </Match>
+  </Match>
+  <Match ContentType="CasePost">
+    <Place Parts_Contents_Publish_SummaryAdmin="-"/>
+  </Match>
+</Placement>
