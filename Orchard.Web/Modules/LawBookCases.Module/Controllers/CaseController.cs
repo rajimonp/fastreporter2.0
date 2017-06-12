@@ -196,7 +196,7 @@ namespace LawBookCases.Module.Controllers {
             {
                 return new HttpUnauthorizedResult();
             }
-
+bi
              dynamic cAse = _services.ContentManager.BuildDisplay(CasePart);
 
 
