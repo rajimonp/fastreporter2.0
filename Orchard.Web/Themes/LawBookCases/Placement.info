@@ -14,7 +14,9 @@
     <Place Parts_Common_Metadata="-"/>
   </Match>
 -->
-   <Place Parts_Common_Metadata="-"/>     
+   <Place Parts_Common_Metadata="-"/>   
+ <Place Parts_Tags_ShowTags="-"/>
+   <Place Parts_Comments_Count="-"/>   
   <Place Parts_Common_Metadata_Summary="-"/>
   <Place Parts_Blogs_Metadata="-"/>
   <Match DisplayType="Detail">
